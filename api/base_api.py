@@ -4,6 +4,7 @@ import json.decoder
 from requests import Response
 from jsonschema import validate
 from helper.logger import log
+from configurations import BASE_URL
 
 
 class BaseApi:
@@ -11,9 +12,10 @@ class BaseApi:
     def __init__(self):
         self.response = None
 
-    def get(self, url: str, endpoint: str, pet_id: int):
+    def get(self, endpoint: str, pet_id: int):
+        url = BASE_URL
         self.response = requests.get(url=f"{url}{endpoint}{pet_id}")
-        log(self.response)
+        log(response=self.response)
         return self
 
     def post(self, url: str, endpoint: str, json: dict = None):
