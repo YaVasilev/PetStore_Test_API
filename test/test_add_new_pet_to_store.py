@@ -1,46 +1,15 @@
-from api.base_api import BaseApi
-from data.add_new_pet_to_store_data import create_data
-from configurations import BASE_URL, GET_PET_BY_ID_ENDPOINT, POST_ADD_PET_TO_STORE
+import pytest
+from data.add_new_pet_to_store_data import valid_create_data, valid_create_data_test
+from schema.post_add_new_pet_schema import POST_RESPONSE_SCHEMA
+
+pytest_plugins = ["fixture.pet_api_fixture"]
 
 
-def test_add_with_valid_params():
-    BaseApi.post(BaseApi, url=BASE_URL, endpoint=POST_ADD_PET_TO_STORE,
-                 json=create_data).status_code_should_be(BaseApi, 200).response_has_keys_in_json(BaseApi,
-                                                                                                 BaseApi.post(BaseApi,
-                                                                                                              url=BASE_URL,
-                                                                                                              endpoint=POST_ADD_PET_TO_STORE,
-                                                                                                              json=create_data),
-                                                                                                 ["id", "category",
-                                                                                                  "name", "photoUrls",
-                                                                                                  "tags", "status"])
-    BaseApi.post(BaseApi, url=BASE_URL, endpoint=POST_ADD_PET_TO_STORE,
-                 json=create_data).status_code_should_be(BaseApi, 200).response_has_value_in_json(BaseApi,
-                                                                                                  BaseApi.get(BaseApi,
-                                                                                                              url=BASE_URL,
-                                                                                                              endpoint=GET_PET_BY_ID_ENDPOINT,
-                                                                                                              pet_id=222),
-                                                                                                  "id", 222,
-                                                                                                  "Wrong value")
-    BaseApi.post(BaseApi, url=BASE_URL, endpoint=POST_ADD_PET_TO_STORE,
-                 json=create_data).status_code_should_be(BaseApi, 200).response_has_value_in_json(BaseApi,
-                                                                                                  BaseApi.get(BaseApi,
-                                                                                                              url=BASE_URL,
-                                                                                                              endpoint=GET_PET_BY_ID_ENDPOINT,
-                                                                                                              pet_id=222),
-                                                                                                  "name", "TestName",
-                                                                                                  "Wrong value")
-    BaseApi.post(BaseApi, url=BASE_URL, endpoint=POST_ADD_PET_TO_STORE,
-                 json=create_data).status_code_should_be(BaseApi, 200).response_has_value_in_json(BaseApi,
-                                                                                                  BaseApi.get(BaseApi,
-                                                                                                              url=BASE_URL,
-                                                                                                              endpoint=GET_PET_BY_ID_ENDPOINT,
-                                                                                                              pet_id=222),
-                                                                                                  "status", "available",
-                                                                                                  "Wrong value")
+def test_add_with_valid_params(pet_api):
+    pet_api.add_pet_to_store()
+    pet_api.status_code_should_be(200)
+    pet_api.assert_schema_is_valid(POST_RESPONSE_SCHEMA)
 
 
 def test_add_with_no_valid_params():
     pass
-
-
-

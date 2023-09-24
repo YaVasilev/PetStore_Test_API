@@ -1,4 +1,4 @@
-GET_SCHEMA = {
+POST_RESPONSE_SCHEMA = {
     "$schema": "http://json-schema.org/draft-04/schema#",
     "type": "object",
     "properties": {
@@ -26,14 +26,4 @@ GET_SCHEMA = {
     }
 }
 
-GET_ERROR_SCHEMA = {
-    "$schema": "http://json-schema.org/draft-04/schema#",
-    "type": "object",
-    "properties": {
-        "code": {"type": "integer"},
-        "type": {"type": "string"},
-        "message": {"type": "string"}
-    }
-}
-
-GET_EMPTY_SCHEMA = None
+POST_ERROR_SCHEMA = None

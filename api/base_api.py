@@ -1,10 +1,12 @@
 import requests
-import json
-import json.decoder
-from requests import Response
 from jsonschema import validate
 from helper.logger import log
-from configurations import BASE_URL
+
+BASE_URL = "https://petstore.swagger.io"
+HEADERS = {
+    "accept": "application/json",
+    "Content-Type": "application/json"
+}
 
 
 class BaseApi:
@@ -18,8 +20,10 @@ class BaseApi:
         log(response=self.response)
         return self
 
-    def post(self, url: str, endpoint: str, json: dict = None):
+    def post(self, endpoint: str, headers: dict = None, json: dict = None):
+        url = BASE_URL
         self.response = requests.post(url=f"{url}{endpoint}",
+                                      headers=headers,
                                       json=json)
         log(self.response, request_body=json)
         return self
@@ -28,31 +32,8 @@ class BaseApi:
         actual_status_code = self.response.status_code
         assert actual_status_code == expected_status_code, (f"Actual status code {actual_status_code}, "
                                                             f"Expected status code {expected_status_code}")
-        log(self.response)
         return self
 
-    def response_has_keys_in_json(self, response: Response, keys: list):
-        try:
-            response = self.response.json()
-        except json.JSONDecodeError:
-            assert False, f"Response is not in JSON format. Response text is {response.text}"
-        for key in keys:
-            assert key in response, f"Response JSON doesn`t have keys {response.text}"
-
-    def response_has_value_in_json(self, response: Response, key, value, error_message):
-        try:
-            response = self.response.json()
-        except json.JSONDecodeError:
-            assert False, f"Response is not in JSON format. Response text is {self.response.text}"
-
-        assert key in response, f"Response JSON doesn`t have key {self.response.text}"
-        assert response[key] == value, error_message
-
-    def response_schema_is_valid(self, schema):
-        if isinstance(self.response.json(), list):
-            for item in self.response.json():
-                validate(item, schema)
-            else:
-                validate(self.response.json(), schema)
+    def assert_schema_is_valid(self, expected_schema):
+        validate(self.response.json(), expected_schema)
         return self
-
