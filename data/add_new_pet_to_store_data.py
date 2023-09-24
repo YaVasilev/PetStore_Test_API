@@ -1,3 +1,5 @@
+import random
+import json
 
 valid_create_data = ({
     "id": 222,
@@ -20,30 +22,37 @@ valid_create_data = ({
 
 empty_data = {}
 
-id = 333
-category_id = 333
-category_name = "Test3"
-name = "Test3"
-photoUrls = "TestString"
-tags_id = 333
-tags_name = "Test3"
-status = "available"
 
-valid_create_data_test = ({
-    "id": id,
-    "category": {
-        "id": category_id,
-        "name": category_name
-    },
-    "name": name,
-    "photoUrls": [
-        photoUrls
-    ],
-    "tags": [
-        {
-            "id": tags_id,
-            "name": tags_name
-        }
-    ],
-    "status": status
-})
+def generate_valid_data():
+    letters = "abcdefghijklmnopqrstuvwxyz"
+    length = 5
+
+    id = random.randint(100, 300)
+    category_id = random.randint(100, 300)
+    category_name = "".join([random.choice(letters) for _ in range(length)])
+    name = "".join([random.choice(letters) for _ in range(length)])
+    photoUrls = "".join([random.choice(letters) for _ in range(length)])
+    tags_id = random.randint(100, 300)
+    tags_name = "".join([random.choice(letters) for _ in range(length)])
+    status = "available"
+
+    valid_create_data_test = ({
+        "id": id,
+        "category": {
+            "id": category_id,
+            "name": category_name
+        },
+        "name": name,
+        "photoUrls": [
+            photoUrls
+        ],
+        "tags": [
+            {
+                "id": tags_id,
+                "name": tags_name
+            }
+        ],
+        "status": status
+    })
+
+    return valid_create_data_test

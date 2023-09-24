@@ -1,5 +1,5 @@
 from api.base_api import BaseApi
-from data.add_new_pet_to_store_data import valid_create_data_test
+from data.add_new_pet_to_store_data import generate_valid_data
 
 
 GET_PET_BY_ID_ENDPOINT = "/v2/pet/"
@@ -15,7 +15,7 @@ class PetApi(BaseApi):
         return self.get(endpoint=GET_PET_BY_ID_ENDPOINT,
                         pet_id=pet_id)
 
-    def add_pet_to_store(self):
+    def add_pet_to_store(self, json_body):
         return self.post(endpoint=POST_ADD_PET_TO_STORE,
                          headers=HEADERS,
-                         json=valid_create_data_test)
+                         json=json_body)
