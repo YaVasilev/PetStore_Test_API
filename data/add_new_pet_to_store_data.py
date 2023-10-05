@@ -1,58 +1,28 @@
-import random
-import json
+"""Данные для создания pet"""
+from model.add_new_pet_model import generate_data
 
-valid_create_data = ({
-    "id": 222,
-    "category": {
-        "id": 222,
-        "name": "TestName"
-    },
-    "name": "TestName",
-    "photoUrls": [
-        "string"
-    ],
-    "tags": [
-        {
-            "id": 222,
-            "name": "TestName"
-        }
-    ],
-    "status": "available"
-})
 
+"""Валидные данные"""
+valid_post_data = generate_data(main_id=123, category_id=123, category_name="CategoryName1", name="Name1", photoUrls="Test string1",
+    tags_id=321, tags_name="TagsName1", status="available")
+
+"""Не валидные данные"""
+no_valid_post_data = (generate_data(main_id="Test", category_id=123, category_name="CategoryName1", name="Name1", photoUrls="Test string1",
+    tags_id=321, tags_name="TagsName1", status="available"),
+                      generate_data(main_id=123, category_id="TestCatID", category_name="CategoryName1", name="Name1", photoUrls="Test string1",
+    tags_id=321, tags_name="TagsName1", status="available"),
+                      generate_data(main_id=123, category_id=123, category_name=123, name="Name1", photoUrls="Test string1",
+    tags_id=321, tags_name="TagsName1", status="available"),
+                      generate_data(main_id=123, category_id=123, category_name="CategoryName1", name=456, photoUrls="Test string1",
+    tags_id=321, tags_name="TagsName1", status="available"),
+                      generate_data(main_id=123, category_id=123, category_name="CategoryName1", name="Name1", photoUrls=123,
+    tags_id=321, tags_name="TagsName1", status="available"),
+                      generate_data(main_id=123, category_id=123, category_name="CategoryName1", name="Name1", photoUrls="Test string1",
+    tags_id="TestTagsID", tags_name="TagsName1", status="available"),
+                      generate_data(main_id=123, category_id=123, category_name="CategoryName1", name="Name1", photoUrls="Test string1",
+    tags_id=321, tags_name=789, status="available"),
+                      generate_data(main_id=123, category_id=123, category_name="CategoryName1", name="Name1", photoUrls="Test string1",
+    tags_id=321, tags_name="TagsName1", status=000))
+
+"""Пустое тело запрос"""
 empty_data = {}
-
-
-def generate_valid_data():
-    letters = "abcdefghijklmnopqrstuvwxyz"
-    length = 5
-
-    id = random.randint(100, 300)
-    category_id = random.randint(100, 300)
-    category_name = "".join([random.choice(letters) for _ in range(length)])
-    name = "".join([random.choice(letters) for _ in range(length)])
-    photoUrls = "".join([random.choice(letters) for _ in range(length)])
-    tags_id = random.randint(100, 300)
-    tags_name = "".join([random.choice(letters) for _ in range(length)])
-    status = "available"
-
-    valid_create_data_test = ({
-        "id": id,
-        "category": {
-            "id": category_id,
-            "name": category_name
-        },
-        "name": name,
-        "photoUrls": [
-            photoUrls
-        ],
-        "tags": [
-            {
-                "id": tags_id,
-                "name": tags_name
-            }
-        ],
-        "status": status
-    })
-
-    return valid_create_data_test

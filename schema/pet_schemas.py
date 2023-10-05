@@ -1,4 +1,6 @@
-GET_SCHEMA = {
+"""Схемы ответа по pet"""
+
+GET_POST_SCHEMA = {
     "$schema": "http://json-schema.org/draft-04/schema#",
     "type": "object",
     "properties": {
@@ -36,4 +38,34 @@ GET_ERROR_SCHEMA = {
     }
 }
 
-GET_EMPTY_SCHEMA = None
+POST_EMPTY_SCHEMA = {
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "type": "object",
+    "properties": {
+        "id": {"type": "integer"},
+        "photoUrls": {"type": "string"},
+        "tags": {"type": "string"}
+    }
+}
+
+DELETE_RESP_PET_SCHEMA = {
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "type": "object",
+    "properties": {
+        "code": {"type": "integer"},
+        "type": {"type": "string"},
+        "message": {"type": "string"}
+    }
+}
+
+UPDATE_POST_SCHEMA = {
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "type": "object",
+    "properties": {
+        "code": {"type": "integer"},
+        "type": {"type": "string"},
+        "message": {"type": "string"}
+    }
+}
+
+RESP_EMPTY_SCHEMA = None

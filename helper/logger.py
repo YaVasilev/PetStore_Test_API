@@ -1,3 +1,4 @@
+"""Логирование"""
 import logging
 import requests
 
