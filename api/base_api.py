@@ -20,9 +20,9 @@ class BaseApi:
     def __init__(self):
         self.response = None
 
-    def get(self, endpoint: str, pet_id: int):
+    def get(self, endpoint: str, id: int):
         url = BASE_URL
-        self.response = requests.get(url=f"{url}{endpoint}{pet_id}",
+        self.response = requests.get(url=f"{url}{endpoint}{id}",
                                      headers=self.HEADERS)
         log(response=self.response)
         return self
@@ -36,9 +36,9 @@ class BaseApi:
         log(self.response, request_body=json)
         return self
 
-    def delete(self, endpoint: str, pet_id: str):
+    def delete(self, endpoint: str, id: str):
         url = BASE_URL
-        self.response = requests.delete(url=f"{url}{endpoint}{pet_id}",
+        self.response = requests.delete(url=f"{url}{endpoint}{id}",
                                         headers=self.HEADERS)
         log(response=self.response)
         return self

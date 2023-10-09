@@ -10,7 +10,7 @@ class PetApi(BaseApi):
     """Получение pet по id"""
     def get_pet(self, get_pet_id):
         return self.get(endpoint=GET_POST_DELETE_PET_BY_ID_ENDPOINT,
-                        pet_id=get_pet_id)
+                        id=get_pet_id)
 
     """Создание нового pet"""
     def add_pet_to_store(self, json_body):
@@ -27,4 +27,4 @@ class PetApi(BaseApi):
     """Удаление pet по id"""
     def delete_pet(self, pet_id):
         return self.delete(endpoint=GET_POST_DELETE_PET_BY_ID_ENDPOINT,
-                           pet_id=pet_id)
+                           id=pet_id)
