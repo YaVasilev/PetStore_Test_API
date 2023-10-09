@@ -1,5 +1,5 @@
 """Данные для обновления Name и Status по id"""
-from model.uodate_by_id_pet_data import update_data
+from model.uodate_by_id_pet_model import update_data
 
 
 
