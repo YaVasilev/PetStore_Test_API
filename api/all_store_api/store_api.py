@@ -1,8 +1,7 @@
 from api.base_api import BaseApi
 
 PLACE_ORDER_FOR_PET = "/v2/store/order"
-FIND_ORDER_BY_ID = "/v2/store/order/"
-DELETE_ORDER_BY_ID = "/v2/store/order/"
+FIND_DELETE_ORDER_BY_ID = "/v2/store/order/"
 
 
 class StoreApi(BaseApi):
@@ -15,9 +14,10 @@ class StoreApi(BaseApi):
 
     """Поиск заказа по Id"""
     def find_order_by_id(self, get_store_id):
-        return self.get(endpoint=FIND_ORDER_BY_ID,
+        return self.get(endpoint=FIND_DELETE_ORDER_BY_ID,
                         id=get_store_id)
 
+    """Удаление заказа по Id"""
     def delete_order_by_id(self, delete_store_id):
-        return self.delete(endpoint=DELETE_ORDER_BY_ID,
+        return self.delete(endpoint=FIND_DELETE_ORDER_BY_ID,
                            id=delete_store_id)

@@ -28,7 +28,7 @@ GET_POST_SCHEMA = {
     }
 }
 
-GET_ERROR_SCHEMA = {
+GET_UPD_DEL_ERROR_SCHEMA = {
     "$schema": "http://json-schema.org/draft-04/schema#",
     "type": "object",
     "properties": {
@@ -48,24 +48,5 @@ POST_EMPTY_SCHEMA = {
     }
 }
 
-DELETE_RESP_PET_SCHEMA = {
-    "$schema": "http://json-schema.org/draft-04/schema#",
-    "type": "object",
-    "properties": {
-        "code": {"type": "integer"},
-        "type": {"type": "string"},
-        "message": {"type": "string"}
-    }
-}
-
-UPDATE_POST_SCHEMA = {
-    "$schema": "http://json-schema.org/draft-04/schema#",
-    "type": "object",
-    "properties": {
-        "code": {"type": "integer"},
-        "type": {"type": "string"},
-        "message": {"type": "string"}
-    }
-}
 
 RESP_EMPTY_SCHEMA = None

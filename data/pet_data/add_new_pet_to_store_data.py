@@ -1,5 +1,5 @@
 """Данные для создания pet"""
-from model.add_new_pet_model import generate_data
+from model.create_update_pet_model import generate_data
 
 
 """Валидные данные"""

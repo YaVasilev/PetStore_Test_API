@@ -1,6 +1,5 @@
 """Данные для обновления Name и Status по id"""
-from model.update_by_id_pet_model import update_data
-
+from model.create_update_pet_model import update_data
 
 
 update_pet_id = 123

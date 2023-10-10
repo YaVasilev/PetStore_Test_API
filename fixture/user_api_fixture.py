@@ -1,7 +1,7 @@
 import pytest
 from api.all_user_api.user_api import UserApi
 
-"""Конектор к StoreApi """
+"""Конектор к UserApi """
 
 
 @pytest.fixture(scope="function")

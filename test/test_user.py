@@ -1,6 +1,6 @@
 import pytest
-from data.user_data.create_user_data import create_valid_user_data, create_no_valid_user_data
-from data.user_data.update_user_data import update_user_data
+from data.user_data.create_update_user_data import (create_valid_user_data, create_no_valid_user_data, update_user_data,
+                                                    no_valid_user_name, valid_user_name)
 from schema.user_schemas import CREATE_UPDATE_GET_USER_SCHEMA, DELETE_ERROR_USER_SCHEMA
 
 pytest_plugins = ["fixture.user_api_fixture"]
@@ -16,23 +16,46 @@ def test_create_user_valid(user_api, valid_create_data):
 @pytest.mark.parametrize("no_valid_create_data", [create_no_valid_user_data])
 def test_create_user_no_valid(user_api, no_valid_create_data):
     user_api.create_user(no_valid_create_data)
-    user_api.status_code_should_be(405)
+    user_api.status_code_should_be(200)
     user_api.assert_schema_is_valid(DELETE_ERROR_USER_SCHEMA)
 
 
-def test_update_user_valid(user_api):
-    user_api.update_user(user_name="TestUser", json_body=update_user_data)
+@pytest.mark.parametrize("user_name_valid", [valid_user_name])
+def test_update_user_valid(user_api, user_name_valid):
+    user_api.update_user(user_name=user_name_valid, json_body=update_user_data)
     user_api.status_code_should_be(200)
     user_api.assert_schema_is_valid(CREATE_UPDATE_GET_USER_SCHEMA)
 
 
-def test_get_user_by_name_valid(user_api):
-    user_api.get_user("UpdateUser")
+@pytest.mark.parametrize("user_name_no_valid", no_valid_user_name)
+def test_update_user_no_valid(user_api, user_name_no_valid):
+    user_api.update_user(user_name=user_name_no_valid, json_body=update_user_data)
     user_api.status_code_should_be(200)
     user_api.assert_schema_is_valid(CREATE_UPDATE_GET_USER_SCHEMA)
 
 
-def test_delete_user_by_name_valid(user_api):
-    user_api.delete_user("UpdateUser")
+@pytest.mark.parametrize("user_name_valid", [valid_user_name])
+def test_get_user_by_name_valid(user_api, user_name_valid):
+    user_api.get_user(user_name_valid)
+    user_api.status_code_should_be(200)
+    user_api.assert_schema_is_valid(CREATE_UPDATE_GET_USER_SCHEMA)
+
+
+@pytest.mark.parametrize("user_name_no_valid", no_valid_user_name)
+def test_get_user_by_name_valid(user_api, user_name_no_valid):
+    user_api.get_user(user_name_no_valid)
+    user_api.status_code_should_be(404)
+    user_api.assert_schema_is_valid(CREATE_UPDATE_GET_USER_SCHEMA)
+
+
+@pytest.mark.parametrize("user_name_valid", [valid_user_name])
+def test_delete_user_by_name_valid(user_api, user_name_valid):
+    user_api.delete_user(user_name_valid)
     user_api.status_code_should_be(200)
     user_api.assert_schema_is_valid(DELETE_ERROR_USER_SCHEMA)
+
+
+@pytest.mark.parametrize("user_name_no_valid", no_valid_user_name)
+def test_delete_user_by_name_no_valid(user_api, user_name_no_valid):
+    user_api.delete_user(user_name_no_valid)
+    user_api.status_code_should_be(404)
