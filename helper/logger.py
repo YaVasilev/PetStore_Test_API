@@ -2,11 +2,8 @@
 import logging
 import requests
 
-
 logger = logging.getLogger()
 logger.setLevel(logging.INFO)
-
-response1 = requests.get(url="https://petstore.swagger.io/v2/pet/222")
 
 
 def log(response, request_body=None):
@@ -21,6 +18,3 @@ def log(response, request_body=None):
     logger.info(f"RESPONSE HEADERS: {response.headers}")
     logger.info(f"RESPONSE BODY: {response.text}")
     logger.info("End Log **************************************************************\n.\n.")
-
-
-log(response1)

@@ -27,12 +27,19 @@ class BaseApi:
         log(response=self.response)
         return self
 
-    def post(self, endpoint: str, headers: dict = None, json: dict = None, data: dict = None):
+    def post(self, endpoint: str, headers: dict = None, json: dict = None):
         url = BASE_URL
         self.response = requests.post(url=f"{url}{endpoint}",
                                       headers=headers,
-                                      json=json,
-                                      data=data)
+                                      json=json)
+        log(self.response, request_body=json)
+        return self
+
+    def put(self, endpoint: str, headers: dict = None, json: dict = None):
+        url = BASE_URL
+        self.response = requests.put(url=f"{url}{endpoint}",
+                                     headers=headers,
+                                     json=json)
         log(self.response, request_body=json)
         return self
 

@@ -1,9 +1,9 @@
 import pytest
-from data.update_pet_by_id_data import valid_update_data
-from data.add_new_pet_to_store_data import valid_post_data, no_valid_post_data, empty_data
-from data.find_pet_by_id_data import get_pet_id
-from data.update_pet_by_id_data import update_pet_id
-from data.delete_pet_data import delete_pet_id
+from data.pet_data.update_pet_by_id_data import valid_update_data
+from data.pet_data.add_new_pet_to_store_data import valid_post_data, no_valid_post_data, empty_data
+from data.pet_data.find_pet_by_id_data import get_pet_id
+from data.pet_data.update_pet_by_id_data import update_pet_id
+from data.pet_data.delete_pet_data import delete_pet_id
 from schema.pet_schemas import GET_POST_SCHEMA, UPDATE_POST_SCHEMA, DELETE_RESP_PET_SCHEMA, GET_ERROR_SCHEMA
 
 pytest_plugins = ["fixture.pet_api_fixture"]
