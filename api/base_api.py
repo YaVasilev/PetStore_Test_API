@@ -2,6 +2,8 @@
 import requests
 from jsonschema import validate
 from helper.logger import log
+from typing import Union
+from helper.json_parser import JsonParser
 
 BASE_URL = "https://petstore.swagger.io"
 
@@ -18,6 +20,7 @@ class BaseApi:
     }
 
     def __init__(self):
+        self.json_parser = JsonParser()
         self.response = None
 
     def get(self, endpoint: str, id: int):
@@ -60,5 +63,25 @@ class BaseApi:
         validate(self.response.json(), expected_schema)
         return self
 
-    def assert_response_values_is_valid(self):
-        pass
+    #    def assert_response_values_is_equal_expected(self, actual_val):
+    #       assert str(actual_val) in self.response.text, f"Act {actual_val}, dict {self.response}"
+
+    def assert_equal_value_in_response_parameter(self, keys: list, value: Union[bool, str], decode: bool = False):
+        """Параметр decode = False(по умолчанию) - xml response"""
+        payload = self.get_payload(keys, decode)
+        """проверяем на равенство ожидаемого значения и фактического"""
+        assert value == payload, f"\nОжидаемый результат: {value} " \
+                                 f"\nФактический результат: {payload}"
+        return self
+
+    def get_payload(self, keys: list, decode: bool = False):
+        """Получаем payload переходя по ключам,
+        и возвращаем полученный payload.
+        decode=False -> xml: decode=True -> json"""
+        if decode:
+            """парсим в json"""
+            response = self.response.json()
+            payload = self.json_parser.find_json_vertex(response, keys)
+        else:
+            pass
+        return payload
