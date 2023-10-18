@@ -60,5 +60,7 @@ class BaseApi:
         validate(self.response.json(), expected_schema)
         return self
 
-    def assert_response_values_is_valid(self):
-        pass
+    def assert_response_values_is_valid(self, expected_val):
+        response = self.response.text
+        assert str(expected_val) in response, f"Expected value {expected_val}, Actual response {response}"
+        return self
